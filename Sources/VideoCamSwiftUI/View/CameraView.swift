@@ -124,6 +124,9 @@ public struct CameraView: View {
         })
     }
     
+    public init() {
+    }
+        
     public var body: some View {
         GeometryReader { reader in
             ZStack {

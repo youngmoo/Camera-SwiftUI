@@ -1,5 +1,5 @@
 import XCTest
-@testable import Camera_SwiftUI
+@testable import VideoCamSwiftUI
 
 final class Camera_SwiftUITests: XCTestCase {
     func testExample() {
