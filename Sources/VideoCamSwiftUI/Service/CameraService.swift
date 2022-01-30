@@ -343,18 +343,18 @@ public class CameraService : NSObject {
             let preferredDeviceType: AVCaptureDevice.DeviceType
             
             switch currentPosition {
-            case .unspecified, .front:
-                preferredPosition = .back
-                preferredDeviceType = .builtInWideAngleCamera
-                
-            case .back:
-                preferredPosition = .front
-                preferredDeviceType = .builtInWideAngleCamera
-                
-            @unknown default:
-                print("Unknown capture position. Defaulting to back, dual-camera.")
-                preferredPosition = .back
-                preferredDeviceType = .builtInWideAngleCamera
+                case .unspecified, .front:
+                    preferredPosition = .back
+                    preferredDeviceType = .builtInWideAngleCamera
+                    
+                case .back:
+                    preferredPosition = .front
+                    preferredDeviceType = .builtInWideAngleCamera
+                    
+                @unknown default:
+                    print("Unknown capture position. Defaulting to back, dual-camera.")
+                    preferredPosition = .back
+                    preferredDeviceType = .builtInWideAngleCamera
             }
             let devices = self.videoDeviceDiscoverySession.devices
             var newVideoDevice: AVCaptureDevice? = nil
@@ -392,7 +392,14 @@ public class CameraService : NSObject {
                     self.photoOutput.maxPhotoQualityPrioritization = .quality
                     
                     self.session.commitConfiguration()
-                } catch {
+                    
+                    // Re-confirm movieFileOutput orientation
+                    if let videoConnection = self.movieFileOutput!.connection(with: AVMediaType.video) {
+                        if (videoConnection.isVideoOrientationSupported) {
+                            videoConnection.videoOrientation = .landscapeRight
+                        }
+                    }
+            } catch {
                     print("Error occurred while creating video device input: \(error)")
                 }
             }
