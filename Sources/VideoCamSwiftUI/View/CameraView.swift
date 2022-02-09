@@ -75,7 +75,7 @@ final class CameraModel: ObservableObject {
     }
 }
 
-struct CameraView: View {
+public struct CameraView: View {
     @StateObject var model = CameraModel()
     
     @State var currentZoomFactor: CGFloat = 1.0
@@ -129,7 +129,9 @@ struct CameraView: View {
         })
     }
     
-    var body: some View {
+    public init() {}
+    
+    public var body: some View {
         GeometryReader { reader in
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
