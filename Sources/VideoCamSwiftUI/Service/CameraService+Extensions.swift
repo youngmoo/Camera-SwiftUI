@@ -1,9 +1,8 @@
 //
 //  CameraService+Extensions.swift
-//  Campus
+//  SwiftCamera
 //
-//  Created by Rolando Rodriguez on 1/11/20.
-//  Copyright © 2020 Rolando Rodriguez. All rights reserved.
+//  Created by Rolando Rodriguez on 10/15/20.
 //
 
 import Foundation
@@ -12,6 +11,7 @@ import AVFoundation
 
 extension AVCaptureVideoOrientation {
     init?(deviceOrientation: UIDeviceOrientation) {
+        print("init extension")
         switch deviceOrientation {
         case .portrait: self = .portrait
         case .portraitUpsideDown: self = .portraitUpsideDown
@@ -19,9 +19,11 @@ extension AVCaptureVideoOrientation {
         case .landscapeRight: self = .landscapeLeft
         default: return nil
         }
+        print(self)
     }
     
     init?(interfaceOrientation: UIInterfaceOrientation) {
+        print("init extension()")
         switch interfaceOrientation {
         case .portrait: self = .portrait
         case .portraitUpsideDown: self = .portraitUpsideDown
@@ -29,6 +31,7 @@ extension AVCaptureVideoOrientation {
         case .landscapeRight: self = .landscapeRight
         default: return nil
         }
+        print(self)
     }
 }
 

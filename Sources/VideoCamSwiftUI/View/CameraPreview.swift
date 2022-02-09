@@ -1,13 +1,5 @@
 //
 //  CameraPreview.swift
-//  Campus
-//
-//  Created by Rolando Rodriguez on 12/17/19.
-//  Copyright © 2019 Rolando Rodriguez. All rights reserved.
-//
-
-//
-//  CameraPreview.swift
 //  SwiftCamera
 //
 //  Created by Rolando Rodriguez on 10/17/20.
@@ -32,7 +24,8 @@ struct CameraPreview: UIViewRepresentable {
     let service: CameraService    // Added this to object init so that we can store the videoPreviewLayer in the CameraService (so that videoOrientation can be set when the AVCaptureSession is configured)
     
     func makeUIView(context: Context) -> VideoPreviewView {
-        print("makeUIView() ")
+        // For debugging...
+        // print("makeUIView() ")
         
         let view = VideoPreviewView()
         view.backgroundColor = .black

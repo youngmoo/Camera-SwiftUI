@@ -1,17 +1,9 @@
 //
 //  CameraService.swift
-//  Campus
-//
-//  Created by Rolando Rodriguez on 12/20/19.
-//  Copyright © 2018 Rolando Rodriguez. All rights reserved.
-//
-
-//
-//  CameraService.swift
 //  SwiftCamera
 //
 //  Created by Rolando Rodriguez on 10/15/20.
-
+//
 
 import Foundation
 import Combine
@@ -303,9 +295,12 @@ public class CameraService : NSObject {
             videoConnection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
         }
         
+        //print("video file connection orientation supported: \(videoConnection!.isVideoOrientationSupported)")
+        
         if (videoConnection!.isVideoOrientationSupported) {
          //            let orientation = UIApplication.shared.statusBarOrientation
-            videoConnection?.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
+            videoConnection?.videoOrientation = .landscapeRight
+            // AVCaptureVideoOrientation.landscapeLeft
          }
     }
     
@@ -343,18 +338,18 @@ public class CameraService : NSObject {
             let preferredDeviceType: AVCaptureDevice.DeviceType
             
             switch currentPosition {
-                case .unspecified, .front:
-                    preferredPosition = .back
-                    preferredDeviceType = .builtInWideAngleCamera
-                    
-                case .back:
-                    preferredPosition = .front
-                    preferredDeviceType = .builtInWideAngleCamera
-                    
-                @unknown default:
-                    print("Unknown capture position. Defaulting to back, dual-camera.")
-                    preferredPosition = .back
-                    preferredDeviceType = .builtInWideAngleCamera
+            case .unspecified, .front:
+                preferredPosition = .back
+                preferredDeviceType = .builtInWideAngleCamera
+                
+            case .back:
+                preferredPosition = .front
+                preferredDeviceType = .builtInWideAngleCamera
+                
+            @unknown default:
+                print("Unknown capture position. Defaulting to back, dual-camera.")
+                preferredPosition = .back
+                preferredDeviceType = .builtInWideAngleCamera
             }
             let devices = self.videoDeviceDiscoverySession.devices
             var newVideoDevice: AVCaptureDevice? = nil
@@ -397,9 +392,13 @@ public class CameraService : NSObject {
                     if let videoConnection = self.movieFileOutput!.connection(with: AVMediaType.video) {
                         if (videoConnection.isVideoOrientationSupported) {
                             videoConnection.videoOrientation = .landscapeRight
+                            // AVCaptureVideoOrientation.landscapeLeft
                         }
+                        
                     }
-            } catch {
+                    
+                    
+                } catch {
                     print("Error occurred while creating video device input: \(error)")
                 }
             }

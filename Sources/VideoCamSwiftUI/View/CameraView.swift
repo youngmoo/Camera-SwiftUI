@@ -1,3 +1,5 @@
+//
+//  ContentView.swift
 //  SwiftCamera
 //
 //  Created by Rolando Rodriguez on 10/15/20.
@@ -73,17 +75,20 @@ final class CameraModel: ObservableObject {
     }
 }
 
-public struct CameraView: View {
+struct CameraView: View {
     @StateObject var model = CameraModel()
     
     @State var currentZoomFactor: CGFloat = 1.0
+    @State var buttonColor: Color = .white
     
     var captureButton: some View {
         Button(action: {
+            if buttonColor == .white {buttonColor = .red}
+            else {buttonColor = .white}
             model.capturePhoto()
         }, label: {
             Circle()
-                .foregroundColor(.white)
+                .foregroundColor(buttonColor)
                 .frame(width: 50, height: 50, alignment: .center)
                 .overlay(
                     Circle()
@@ -124,10 +129,7 @@ public struct CameraView: View {
         })
     }
     
-    public init() {
-    }
-        
-    public var body: some View {
+    var body: some View {
         GeometryReader { reader in
             ZStack {
                 Color.black.edgesIgnoringSafeArea(.all)
@@ -198,7 +200,7 @@ public struct CameraView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
+        // print("ContentView_Previews()")
         CameraView()
     }
 }
-
